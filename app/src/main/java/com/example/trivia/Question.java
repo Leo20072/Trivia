@@ -1,6 +1,6 @@
 package com.example.trivia;
 
-public class Question {
+public class  Question {
     private String question,a1,a2,a3,a4;
     private int correct;
 
