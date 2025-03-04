@@ -2,9 +2,12 @@ package com.example.trivia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -13,14 +16,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvQuestion;
     private TextView tvQuestionNumber,tvPoints,tvGameOver;
 
-    private Collection collection;
+    private Collection2 collection;
     private Question q;
     private int Points = 0;
+    private LinearLayout ll; // הפנייה ConstraintLayout
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        ll = findViewById(R.id.activity_game);
+
+        Intent i = getIntent();
+        String str = i.getStringExtra("color");
+        setBackroundColor(str);
 
         // הפניות
         btna1 = findViewById(R.id.btna1);
@@ -41,11 +50,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         tvGameOver.setVisibility(View.INVISIBLE); // הופך את זה לבלתי נראה
 
-        collection = new Collection();
+        collection = new Collection2();
+
         collection.initQuestion();
 
         nextQuestion();
     }
+
 
     private void nextQuestion() {
         if (collection.isNotLastQuestion())
@@ -115,5 +126,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvGameOver.setVisibility(View.INVISIBLE);
         this.nextQuestion();
 
+    }
+
+    private void setBackroundColor(String str){
+        switch (str) {
+            case "Red": {
+                ll.setBackgroundColor(Color.RED);
+                break;
+            }
+            case "Blue": {
+                ll.setBackgroundColor(Color.BLUE);
+                break;
+            }
+            case "Pink": {
+                ll.setBackgroundColor(Color.rgb(255, 192, 203));
+                break;
+            }
+            case "Yellow": {
+                ll.setBackgroundColor(Color.YELLOW);
+
+                break;
+            }
+            default:
+                ll.setBackgroundColor(Color.WHITE);
+        }
     }
 }

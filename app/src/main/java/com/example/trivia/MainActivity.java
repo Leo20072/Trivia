@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> resultLauncher;
     private FbModule fbModule;
     private ConstraintLayout ll; // הפנייה ConstraintLayout
+    private String Colorb = "color";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         if (o.getResultCode() == RESULT_OK)
                         {
                             Intent data = o.getData();
-                            String str = data.getStringExtra("color");
+                           String str = data.getStringExtra("color");
                             fbModule.writeBackgroundColorToFb(str);
 
                         }
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickStart(View view) {
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("color", Colorb);
         startActivity(intent);
     }
 
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickInstruction(View view) {
+        Intent i = new Intent(this, InstructionActivity.class);
+        startActivity(i);
     }
 
     public void setNewColorFromFb(String str) {
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setBackroundColor(String color)
     {
+        Colorb = color;
         switch (color)
         {
             case "Red":
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             case "Yellow":
             {
                 ll.setBackgroundColor(Color.YELLOW);
+
                 break;
             }
             default:
